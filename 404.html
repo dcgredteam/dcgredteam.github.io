@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>
 <body>
+    <h2>
+        Helpful URL shortener service.
+    </h2>
+  
+  This website is a demonstration of a typosquatting attack.<br><br>
+  
+  Anything can be hosted in this domain, including malware.
 
-<p id="404-content"></p>
+  <p id="404-content"></p>
+  <p id="remaining"></p>
+  <script>
+          var current_url = window.location.href;
+          var correct_url = current_url.replace("gotointel", "goto.intel")
 
-<script>
-document.getElementById("404-content").innerHTML = 
-"Requested Page:" + window.location.href;
-</script>
+          var deadline = new Date().getTime() + 10000;
 
+          var url_holder = document.getElementById("404-content")
+          var remaining_holder = document.getElementById("remaining")
+
+          url_holder.innerHTML = "The requested page was: " + current_url;
+
+          var timer = setInterval(function () {
+              var now = new Date().getTime();
+              var distance = deadline - now;
+              var seconds = Math.floor(distance / 1000) - 1;
+              remaining.innerHTML = "In " + seconds + " seconds, we will redirect you to the correct location. ";
+
+              if (distance < 1000) {
+                  remaining_holder.innerHTML = "Redirecting to correct url " + correct_url;
+              }
+              if (distance < 0) {
+                  clearInterval(timer);
+                  window.location.replace(correct_url)
+              }
+          }, 1000);
+      </script>
 </body>
 </html>
